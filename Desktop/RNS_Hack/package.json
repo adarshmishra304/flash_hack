@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "link": "^2.1.2"
+    "ansi-escape": "^1.1.0",
+    "ansi-escapes": "^7.3.0",
+    "link": "^2.1.2",
+    "strip-final-newline": "^4.0.0"
   }
 }
