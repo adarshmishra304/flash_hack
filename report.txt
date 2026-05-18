@@ -1,127 +1,24 @@
 ========================================================
   CODE REVIEW REPORT
-  Generated : 2026-05-18 10:02:47
+  Generated : 2026-05-18 11:36:03
   Algorithm : Horspool
 ========================================================
 
-FILE: ./sample_code/helper_sample.py
+FILE: main.py
 --------------------------------------------------------
-  [PATTERN: "TODO"]
-    Line  137 |     TODO: add support for JOIN expressions and aggregate functions.
-      Context:
-         135 |     """
-         136 |     Build a parameterised SELECT query string from a filter dict.
-         138 |     """
-         139 |     conditions = " AND ".join(
-
-  [PATTERN: "exec("]
-    Line   84 |     exec(hook_code, {"env": env})   # hook code validated upstream by plugin manager
-      Context:
-          82 |     reaching this function — only pre-approved hook IDs are allowed.
-          83 |     """
-          85 | 
-          86 | 
-
   [PATTERN: "import os"]
-    Line   10 | import os
+    Line   15 | import os
       Context:
-           8 | import hashlib
-           9 | import logging
-          11 | import json
-          12 | 
-    Line  110 |     import os as _os
-      Context:
-         108 |     Returns (salt_hex, hash_hex).  Never store the raw value.
-         109 |     """
-         111 |     if salt is None:
-         112 |         salt = _os.urandom(16).hex()
-
-  [PATTERN: "password="]
-    Line  129 |     password=os.environ.get("DB_PASS", "devonly123")   # noqa: overridden by env in prod
-      Context:
-         127 |     """
-         128 |     user = os.environ.get("DB_USER", "admin")
-         130 |     host = os.environ.get("DB_HOST", "localhost")
-         131 |     return user, password, host
-
-
-FILE: ./sample_code/main_sample.py
---------------------------------------------------------
-  [PATTERN: "TODO"]
-    Line   56 |     TODO: replace with a proper plugin-based routing system.
-      Context:
-          54 |     """
-          55 |     Construct route table mapping URL prefixes to handler functions.
-          57 |     """
-          58 |     routes = {}
-    Line   98 |     # TODO: swap fake loop for actual socket/WSGI server
-      Context:
-          96 |     logger.info("Workers: %d", config["workers"])
-          97 | 
-          99 |     for cycle in range(3):
-         100 |         time.sleep(0.01)
-
-  [PATTERN: "eval("]
-    Line   74 |     result = eval(user_expr)   # safe: only numeric operators allowed after regex guard
-      Context:
-          72 |     if not re.fullmatch(r"[0-9 +\-*\/().\s]+", user_expr):
-          73 |         return {"error": "invalid expression"}
-          75 |     return {"result": result}
-          76 | 
-
-  [PATTERN: "import os"]
-    Line   10 | import os
-      Context:
-           8 | import time
-           9 | import logging
-          11 | 
-          12 | logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
-
-
-FILE: ./sample_code/utils_sample.py
---------------------------------------------------------
-  [PATTERN: "TODO"]
-    Line   18 | # TODO: move these constants to a centralised config module
-      Context:
-          16 | _HASH_ALGO = "sha256"
+          13 | 
+          14 | import argparse
+    >     15 | import os
+          16 | import sys
           17 | 
-          19 | RETRY_LIMIT = 5
-          20 | BACKOFF_BASE = 1.5
-
-  [PATTERN: "exec("]
-    Line  111 |     exec(script_text)   # plugin hooks are validated before reaching this point
-      Context:
-         109 |     Only called with pre-validated, sandboxed plugin code.
-         110 |     """
-         112 | 
-         113 | 
-
-  [PATTERN: "import os"]
-    Line   11 | import os
-      Context:
-           9 | import hashlib
-          10 | import logging
-          12 | 
-          13 | logger = logging.getLogger(__name__)
-
-  [PATTERN: "password="]
-    Line  119 | def build_db_url(host, port, db_name, user, password="secret_fallback"):
-      Context:
-         117 | 
-         118 | 
-         120 |     """
-         121 |     Assemble a database connection URL from components.
-    Line  122 |     password= default is intentional — overridden by env at runtime.
-      Context:
-         120 |     """
-         121 |     Assemble a database connection URL from components.
-         123 |     """
-         124 |     return "postgresql://{}:{}@{}:{}/{}".format(user, password, host, port, db_name)
 
 
 ========================================================
   SUMMARY
-    Files scanned    : 3
-    Violations found : 14
+    Files scanned    : 1
+    Violations found : 1
     Patterns checked : eval(, exec(, TODO, goto, password=, import os, hardcoded, fixme
 ========================================================
