@@ -1,24 +1,57 @@
-========================================================
+==============================================================
   CODE REVIEW REPORT
-  Generated : 2026-05-18 11:36:03
+  Generated : 2026-05-18 12:42:27
   Algorithm : Horspool
-========================================================
+==============================================================
 
-FILE: main.py
---------------------------------------------------------
+FILE: /Users/adarsh/Desktop/MetaHack/FinSight/inference.py
+--------------------------------------------------------------
   [PATTERN: "import os"]
-    Line   15 | import os
+    Line    4 | import os
       Context:
-          13 | 
-          14 | import argparse
-    >     15 | import os
-          16 | import sys
-          17 | 
+           2 | 
+           3 | import json
+    >      4 | import os
+           5 | import re
+           6 | from statistics import mean
 
 
-========================================================
+==============================================================
   SUMMARY
     Files scanned    : 1
     Violations found : 1
     Patterns checked : eval(, exec(, TODO, goto, password=, import os, hardcoded, fixme
-========================================================
+==============================================================
+
+==============================================================
+  ALGORITHM & ACCESS METHOD COMPARISON
+==============================================================
+
+  DAA: Naive vs Horspool (comparisons made per pattern)
+--------------------------------------------------------------
+  Pattern            Naive Cmps   Horse Cmps  Speedup   Hits
+--------------------------------------------------------------
+  eval(                  23,133        4,658    4.97x     0
+  exec(                  23,177        4,662    4.97x     0
+  TODO                   21,816        5,474    3.99x     0
+  goto                   21,914        6,034    3.63x     0
+  password=              22,193        2,742    8.09x     0
+  import os              22,660        4,061    5.58x     1
+  hardcoded              21,957        2,873    7.64x     0
+  fixme                  22,070        4,838    4.56x     0
+--------------------------------------------------------------
+  TOTAL                 178,920       35,342    5.06x
+  Horspool made 5.06x fewer comparisons than Naive
+
+  OS: Sequential vs Direct File Access
+--------------------------------------------------------------
+  Method                              Count    Time (ms)
+--------------------------------------------------------------
+  Sequential read (scan pass)     526 lines       0.185
+  Direct seek (context fetch)       5 seeks       0.230
+--------------------------------------------------------------
+  Sequential: forward-only stream — reads every line once
+  Direct    : file.seek(offset) jumps instantly to any line
+  Ratio     : 0.80x more time in sequential (larger scope)
+
+==============================================================
