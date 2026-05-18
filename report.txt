@@ -1,25 +1,75 @@
 ==============================================================
   CODE REVIEW REPORT
-  Generated : 2026-05-18 12:42:27
+  Generated : 2026-05-18 14:19:15
   Algorithm : Horspool
 ==============================================================
 
-FILE: /Users/adarsh/Desktop/MetaHack/FinSight/inference.py
+FILE: test_sample.py
 --------------------------------------------------------------
-  [PATTERN: "import os"]
-    Line    4 | import os
+  [PATTERN: "TODO"]
+    Line   13 | # TODO: move SECRET_KEY to environment variable before production deploy
       Context:
-           2 | 
-           3 | import json
-    >      4 | import os
-           5 | import re
-           6 | from statistics import mean
+          11 | SECRET_KEY = "supersecret"
+          12 | 
+    >     13 | # TODO: move SECRET_KEY to environment variable before production deploy
+          14 | 
+          15 | def get_db_connection():
+    Line   21 |     # TODO: switch to parameterised queries
+      Context:
+          19 | def run_query(user_input):
+          20 |     query = "SELECT * FROM users WHERE name = '" + user_input + "'"
+    >     21 |     # TODO: switch to parameterised queries
+          22 |     return query
+          23 | 
+
+  [PATTERN: "eval("]
+    Line   25 |     result = eval(expr)
+      Context:
+          23 | 
+          24 | def evaluate_formula(expr):
+    >     25 |     result = eval(expr)
+          26 |     return result
+          27 | 
+
+  [PATTERN: "exec("]
+    Line   29 |     exec(plugin_code)
+      Context:
+          27 | 
+          28 | def load_plugin(plugin_code):
+    >     29 |     exec(plugin_code)
+          30 | 
+          31 | def process_request(request):
+
+  [PATTERN: "import os"]
+    Line    6 | import os
+      Context:
+           4 | """
+           5 | 
+    >      6 | import os
+           7 | import json
+           8 | import hashlib
+    Line   32 |     import os
+      Context:
+          30 | 
+          31 | def process_request(request):
+    >     32 |     import os
+          33 |     log_path = os.path.join("/var/log", request.get("user", "anon"))
+          34 |     with open(log_path, "a") as f:
+
+  [PATTERN: "password="]
+    Line   16 |     password="admin123"  # default dev password
+      Context:
+          14 | 
+          15 | def get_db_connection():
+    >     16 |     password="admin123"  # default dev password
+          17 |     return {"host": DB_HOST, "password": password}
+          18 | 
 
 
 ==============================================================
   SUMMARY
     Files scanned    : 1
-    Violations found : 1
+    Violations found : 7
     Patterns checked : eval(, exec(, TODO, goto, password=, import os, hardcoded, fixme
 ==============================================================
 
@@ -31,27 +81,32 @@ FILE: /Users/adarsh/Desktop/MetaHack/FinSight/inference.py
 --------------------------------------------------------------
   Pattern            Naive Cmps   Horse Cmps  Speedup   Hits
 --------------------------------------------------------------
-  eval(                  23,133        4,658    4.97x     0
-  exec(                  23,177        4,662    4.97x     0
-  TODO                   21,816        5,474    3.99x     0
-  goto                   21,914        6,034    3.63x     0
-  password=              22,193        2,742    8.09x     0
-  import os              22,660        4,061    5.58x     1
-  hardcoded              21,957        2,873    7.64x     0
-  fixme                  22,070        4,838    4.56x     0
+  eval(                   1,464          306    4.78x     1
+  exec(                   1,461          296    4.94x     1
+  TODO                    1,370          349    3.93x     2
+  goto                    1,377          371    3.71x     0
+  password=               1,424          183    7.78x     1
+  import os               1,425          224    6.36x     2
+  hardcoded               1,381          182    7.59x     0
+  fixme                   1,387          300    4.62x     0
 --------------------------------------------------------------
-  TOTAL                 178,920       35,342    5.06x
-  Horspool made 5.06x fewer comparisons than Naive
+  TOTAL                  11,289        2,211    5.11x
+  Horspool made 5.11x fewer comparisons than Naive
 
   OS: Sequential vs Direct File Access
 --------------------------------------------------------------
   Method                              Count    Time (ms)
 --------------------------------------------------------------
-  Sequential read (scan pass)     526 lines       0.185
-  Direct seek (context fetch)       5 seeks       0.230
+  Sequential read (scan pass)      54 lines       0.063
+  Direct seek (context fetch)      35 seeks       0.765
 --------------------------------------------------------------
   Sequential: forward-only stream — reads every line once
   Direct    : file.seek(offset) jumps instantly to any line
-  Ratio     : 0.80x more time in sequential (larger scope)
+  Ratio     : 0.08x more time in sequential (larger scope)
 
+==============================================================
+==============================================================
+  AGENT REVIEW  ·  Llama 3.3 70B (Groq)
+  File      : test_sample.py
+  Generated : 2026-05-18 14:19:17
 ==============================================================

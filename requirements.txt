@@ -1,0 +1,6 @@
+langchain-core>=0.3
+langchain-groq>=0.2           # for GROQ_API_KEY
+langchain-anthropic>=0.3      # for ANTHROPIC_API_KEY
+langchain-openai>=0.3         # for OPENAI_API_KEY
+langchain-google-genai>=2.0   # for GOOGLE_API_KEY
+pydantic>=2.0
